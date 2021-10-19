@@ -1,0 +1,30 @@
+{
+  "name": "static_server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:app": "node scripts/app-build.js",
+    "build:server": "node scripts/server-build.js",
+    "start": "node server.js",
+    "dev": "nodemon server.js --watch setting.js mock.js server.js"
+  },
+  "pkg": {
+    "assets": ["./html/**/*"]
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "http-proxy-middleware": "^2.0.1",
+    "mockjs": "^1.1.0",
+    "multer": "^1.4.3",
+    "serve-index": "^1.9.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13",
+    "pkg": "^5.3.3"
+  },
+  "author": "",
+  "license": "ISC"
+}
