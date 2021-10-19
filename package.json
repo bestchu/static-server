@@ -10,7 +10,9 @@
     "dev": "nodemon server.js --watch setting.js mock.js server.js"
   },
   "pkg": {
-    "assets": ["./html/**/*"]
+    "assets": [
+      "./html/**/*"
+    ]
   },
   "dependencies": {
     "body-parser": "^1.19.0",

@@ -1,7 +1,7 @@
 module.exports = {
 		"/api": [
 		  {
-			name: "/risk/proportion",
+			name: "hello",
 			url: "/hello",
 			method: "get",
 			on: true,

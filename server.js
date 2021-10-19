@@ -189,6 +189,7 @@ function main(setting) {
       "<html><body>static-server</body></html>",
       { encoding: "utf-8" }
     );
+    console.log("初始化配置文件成功");
   }
 }
 if (require.main.filename === __filename) {
