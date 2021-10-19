@@ -21,5 +21,12 @@ process.nextTick(async () => {
       encoding: "utf-8",
     }
   );
-  await exec(["./scripts/app", "--target", "host", "--output", "bin/app"]);
+  await exec([
+    "./scripts/app",
+    "--target",
+    // "win,macos,linux",
+    "host",
+    "--output",
+    "bin/app",
+  ]);
 });

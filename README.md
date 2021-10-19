@@ -6,13 +6,17 @@ static-server 静态页面服务器，支持接口proxy及mock
 1. 调式 `npm run dev`
 ## 直接使用
 1. 下载操系统对应的可执行文件直接运行即可
+    - win [server-win](./bin/server-win.exe)
+    - linux [server-linux](./bin/server-linux)
+    - macos [server-macos](./bin/server-macos)
+1. 第一次执行会在当前目录下生产配置文件
 ## 打包为可执行文件
 1. 打包静态服务(不含静态文件及setting.js、server.js、mock.js配置文件) `npm run build:server`
 1. 打包应用未单一可执行文件 `npm run build:app`
 
 ##说明
-1. proxy 请参照[http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware)
-1. mock 语法参照[MockJs](http://mockjs.com/)
+1. proxy 请参照 [http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware)
+1. mock 语法参照 [MockJs](http://mockjs.com/)
 
     ### mock配置为 `{"接口根路径":["mock规则"]}`
     
