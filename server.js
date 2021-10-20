@@ -45,14 +45,11 @@ function main(setting) {
     if (setting.mock) {
       const mockConfig = Object.entries(setting.mock);
       for (const [mockBaseUrl, morkRules] of mockConfig) {
-        console.log("[MOCK]", mockBaseUrl);
-        app.use(mockBaseUrl, upload.array(), function (req, res, next) {
-          for (const morkRule of morkRules) {
-            if (
-              morkRule.on &&
-              req.path === morkRule.url &&
-              req.method.toLowerCase() === morkRule.method.toLowerCase()
-            ) {
+        const router = express.Router();
+        for (const morkRule of morkRules) {
+          const method = morkRule.method.toLowerCase();
+          if (morkRule.on && typeof router[method] === "function") {
+            router[method](morkRule.url, function (req, res) {
               const { _meta = {}, ...morkRes } = morkBuild(morkRule.body, req);
               const meta = Object.assign(
                 { statusCode: 200, headers: {}, cookies: {} },
@@ -69,19 +66,23 @@ function main(setting) {
                 res.cookie(key, val);
               });
               res.send(Mock.mock(morkRes));
+            });
+          }
+        }
+        console.log("[MOCK]", mockBaseUrl);
+        app.use(mockBaseUrl, upload.array(), [
+          router,
+          function (req, res) {
+            if (req.accepts("json")) {
+              res.send({
+                code: 200,
+                data: null,
+                message: "接口未定义",
+              });
               return;
             }
-          }
-          if (req.accepts("json")) {
-            res.send({
-              code: 200,
-              data: null,
-              message: "接口未定义",
-            });
-            return;
-          }
-          next();
-        });
+          },
+        ]);
       }
     }
     // proxy 配置
@@ -92,26 +93,28 @@ function main(setting) {
       }
     }
     // html 配置
-    console.log(setting.html, fs.existsSync(setting.html));
     if (setting.html && fs.existsSync(setting.html)) {
       app.use(express.static(setting.html, {}));
       //需要配置在 proxy配置后面
-      app.use(setting.htmlUrl, serveIndex(setting.html, { icons: true }));
-      for (const filename of setting.defaultIndex) {
-        const filePath = path.join(setting.html, filename);
-        if (fs.existsSync(filePath)) {
-          // const fileBody = fs.readFileSync(filePath, { encoding: "utf-8" });
-          if (setting.toIndex) {
-            app.use(setting.htmlUrl + "*", function (req, res) {
-              if (req.accepts("html")) {
-                res.contentType = "text/html";
-                res.sendFile(filePath);
+      app.use(setting.htmlUrl, [
+        serveIndex(setting.html, { icons: true }),
+        function (req, res) {
+          if (req.accepts("html")) {
+            res.contentType = "text/html";
+            for (const filename of setting.defaultIndex) {
+              const filePath = path.join(setting.html, filename);
+              if (fs.existsSync(filePath)) {
+                // const fileBody = fs.readFileSync(filePath, { encoding: "utf-8" });
+                if (setting.toIndex) {
+                  res.sendFile(filePath);
+                  return;
+                }
               }
-            });
+            }
+            res.send("Not Found");
           }
-          break;
-        }
-      }
+        },
+      ]);
     }
     app.listen(setting.port, setting.host, function () {
       console.log("服务启动成功，端口为:" + setting.port);

@@ -25,7 +25,7 @@ static-server 静态页面服务器，支持接口proxy及mock
     {
         "name":"接口名称"，
         "method":"请求方法",
-        "url":"接口路径",
+        "url":"接口路径", //路由支持参数 /article/:id
         "on":true,  //是否开启
         "body":{    
             // 接口响应参数，也可为方法
