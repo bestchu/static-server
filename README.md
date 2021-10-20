@@ -84,14 +84,14 @@ static-server 静态页面服务器，支持接口proxy及mock
             "message":"ok",
             "_meta":function(){
                 return {
-				  statusCode: 200,
-				  headers: {
+				statusCode: 200,
+				headers: {
 					Server: "static-server",
-				  },
-				  cookies: {
+				},
+				cookies: {
 					t: Date.now(),
-				  },
-				}
+				},
+			}
             }
         }
     }
