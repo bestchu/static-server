@@ -10,6 +10,14 @@ static-server 静态页面服务器，支持接口proxy及mock
     - linux [server-linux](./bin/server-linux)
     - macos [server-macos](./bin/server-macos)
 1. 第一次执行会在当前目录下生产配置文件
+## setting.js 配置说明
+- defaultIndex:["index.html","index.htm"]   默认首页列表
+- mock:Mock规则|false   Mock配置，false 禁用
+- htmlUrl:"/"   静态页面入口路径
+- toIndex:true  未匹配的静态页面是否输出默认首页，适用于vue,react等单页应用
+- port:8080 应用启动端口
+- host:"0.0.0.0" 应用绑定的IP
+- proxy:{} 代理规则，支持代理websocket
 ## 打包为可执行文件
 1. 打包静态服务(不含静态文件及setting.js、server.js、mock.js配置文件) `npm run build:server`
 1. 打包应用未单一可执行文件 `npm run build:app`
