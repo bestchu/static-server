@@ -6,9 +6,9 @@ static-server 静态页面服务器，支持接口proxy及mock
 1. 调式 `npm run dev`
 ## 直接使用
 1. 下载操系统对应的可执行文件直接运行即可
-    - win [server-win](./bin/server-win.exe)
-    - linux [server-linux](./bin/server-linux)
-    - macos [server-macos](./bin/server-macos)
+    - win [server-win](https://github.com/bestchu/static-server/releases/download/1.0.1/server-win.exe)
+    - linux [server-linux](https://github.com/bestchu/static-server/releases/download/1.0.1/server-linux)
+    - macos [server-macos](https://github.com/bestchu/static-server/releases/download/1.0.1/server-macos)
 1. 第一次执行会在当前目录下生产配置文件
 ## setting.js 配置说明
 - defaultIndex:["index.html","index.htm"]   默认首页列表
