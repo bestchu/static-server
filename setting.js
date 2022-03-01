@@ -2,7 +2,8 @@ const path = require("path");
 const mockRules = require("./mock");
 module.exports = {
   defaultIndex: ["index.html", "index.htm"],
-  mock: mockRules,
+  mock: false,
+  // mock: mockRules,
   htmlUrl: "/",
   html: path.join(__dirname, "./html"),
   // 未匹配到的地址跳转到首页
@@ -10,20 +11,22 @@ module.exports = {
   port: 8080,
   host: "0.0.0.0",
   proxy: {
-    "/s6/weather/now": {
+    "/auth": {
       enable: true,
       changeOrigin: true,
-      prependPath: false,
-      target: "https://api.heweather.net/",
-      pathRewrite: { "^/s6/weather/now": "/s6/weather/now" },
+      prependPath: true,
+      target: "http://101.34.30.242:8009/auth",
+      pathRewrite: { "^/auth": "" },
+      proxyTimeout: 10e3,
+      logLevel: "debug",
     },
-    "/socket.io": {
+    "/pull": {
       enable: true,
       changeOrigin: true,
       prependPath: false,
-      ws: true,
-      target: "http://127.0.0.1:7001",
-      pathRewrite: { "^/socket.io": "/socket.io" },
+      ws: false,
+      target: "http://101.34.30.242:8009",
+      pathRewrite: { "^/pull": "/pull" },
     },
   },
 };

@@ -1,5 +1,5 @@
 module.exports = {
-		"/api": [
+		"/": [
 		  {
 			name: "hello",
 			url: "/hello",
